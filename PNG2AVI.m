@@ -1,15 +1,16 @@
 
-workingDir = '.';
+function PNG2AVI(frameRate, videoName)
+workingDir = videoName;
 
 imageNamesColor = dir(fullfile(workingDir,'images','RGB_*.png'));
-imageNamesColor = {imageNamesColor.name}';
-imageNamesDepth = dir(fullfile(workingDir,'images','Depth_RGB_*.jpg'));
-imageNamesDepth = {imageNamesDepth.name}';
+imageNamesColor = {imageNamesColor.name};
+imageNamesDepth = dir(fullfile(workingDir,'images','Depth_RGB_*.png'));
+imageNamesDepth = {imageNamesDepth.name};
 
 outputVideoColor = VideoWriter(fullfile(workingDir,'color_out.avi'), 'Uncompressed AVI');
-outputVideoColor.FrameRate = 20;
+outputVideoColor.FrameRate = frameRate;
 outputVideoDepth = VideoWriter(fullfile(workingDir,'depth_out.avi'), 'Uncompressed AVI');
-outputVideoDepth.FrameRate = 7;
+outputVideoDepth.FrameRate = frameRate;
 
 open(outputVideoColor)
 for ii = 1:length(imageNamesColor)
@@ -24,5 +25,3 @@ for ii = 1:length(imageNamesDepth)
    writeVideo(outputVideoDepth, img)
 end
 close(outputVideoDepth)
-
-disp('Done!');
